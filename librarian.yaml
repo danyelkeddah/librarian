@@ -11,6 +11,18 @@ default_dirs:
     - global: ~/.claude/commands/
 
 library:
-  skills: []
+  skills:
+    - name: spec-discover
+      description: A Meta-Skill that interviews you about your feature, then breaks it into dependency-ordered specs for local or GitHub.
+      source: https://github.com/danyelkeddah/library/blob/main/skills/spec-discover/SKILL.md
+    - name: spec-plan
+      description: A Meta-Skill that bridges "I need to build this" and "here's exactly how" — turning tasks into implementation-ready PRDs.
+      source: https://github.com/danyelkeddah/library/blob/main/skills/spec-plan/SKILL.md
+    - name: spec-execute
+      description: A Meta-Skill that turns implementation plans into working code — no guessing, no skipping, verified at every step.
+      source: https://github.com/danyelkeddah/library/blob/main/skills/spec-execute/SKILL.md
+    - name: gitops
+      description: A Meta-Skill that turns your code changes into clean commits, proper branches, and well-described PRs — automatically.
+      source: https://github.com/danyelkeddah/library/blob/main/skills/gitops/SKILL.md
   agents: []
   prompts: []
