@@ -24,5 +24,8 @@ library:
     - name: gitops
       description: A Meta-Skill that turns your code changes into clean commits, proper branches, and well-described PRs — automatically.
       source: https://github.com/danyelkeddah/library/blob/main/skills/gitops/SKILL.md
+    - name: prime
+      description: A Meta-Skill that explores and summarizes the codebase to build understanding.
+      source: https://github.com/danyelkeddah/library/blob/main/skills/prime/SKILL.md
   agents: []
   prompts: []
