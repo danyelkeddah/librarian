@@ -27,5 +27,8 @@ library:
     - name: prime
       description: A Meta-Skill that explores and summarizes the codebase to build understanding.
       source: https://github.com/danyelkeddah/library/blob/main/skills/prime/SKILL.md
+    - name: brain
+      description: A Meta-skill that manages your second brain. You write, the AI classifies, links, indexes, and retrieves.
+      source: https://github.com/danyelkeddah/library/blob/main/skills/brain/SKILL.md
   agents: []
   prompts: []
