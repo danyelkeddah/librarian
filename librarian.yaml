@@ -30,5 +30,8 @@ library:
     - name: brain
       description: A Meta-skill that manages your second brain. You write, the AI classifies, links, indexes, and retrieves.
       source: https://github.com/danyelkeddah/library/blob/main/skills/brain/SKILL.md
+    - name: kb
+      description: A meta-skill that gives your project long-term memory. You build, the AI captures, organizes, and recalls.
+      source: https://github.com/danyelkeddah/library/blob/main/skills/kb/SKILL.md
   agents: []
   prompts: []
