@@ -36,5 +36,8 @@ library:
     - name: caveman
       description: A communication mode that cuts AI output ~75% without losing accuracy. You ask, the AI strips the fluff, keeps the substance.
       source: https://github.com/danyelkeddah/library/blob/main/skills/caveman/SKILL.md
+    - name: grill-me
+      description: Pressure-tests your plan by interrogating you one question at a time, each with a recommended answer, reading the code when it can.
+      source: https://github.com/danyelkeddah/library/blob/main/skills/grill-me/SKILL.md
   agents: []
   prompts: []
