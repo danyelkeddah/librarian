@@ -2,11 +2,15 @@
 
 ## Context
 
-The user wants to remove a skill, agent, or prompt from the librarian catalog and optionally delete the local copy.
+The user wants to remove a skill, agent, prompt, Pi extension, or Pi theme from the librarian catalog and optionally delete installed copies from provider directories.
 
 ## Input
 
-The user provides a skill name or description.
+The user provides a skill, agent, prompt, Pi extension, or Pi theme name/description. They may also specify a provider for local deletion:
+
+- `for claude` / `for pi` → only consider that provider's installed copy
+- `everywhere` / `all providers` → consider installed copies in every provider
+- no provider → use `default_provider` when deleting local copies, except Pi extensions and Pi themes use `pi`
 
 ## Steps
 
@@ -23,45 +27,62 @@ git pull
 
 - Read `librarian.yaml`
 - Search across all sections for the matching entry
-- Determine the type (skill, agent, or prompt)
+- Determine the type (skill, agent, prompt, Pi extension, or Pi theme)
 - If no match, tell the user the item wasn't found in the catalog
 
-### 3. Confirm with User
+### 3. Determine Provider Target(s) for Local Deletion
 
-Show the entry details and ask:
+- Read `default_provider` and `providers` from `librarian.yaml`
+- If the catalog only has legacy `default_dirs`, treat it as one `claude` provider
+- If user said `everywhere` or `all providers` → check every configured provider
+- If user said `for <provider>` → check that provider
+- Otherwise, if the entry is a Pi extension or Pi theme → check `pi`
+- Otherwise → check `default_provider`
+- For each selected provider, check both `default` and `global` directories for the entry type
+- If a selected provider does not define that type, warn and skip local deletion for that provider
 
-- "Remove **<n>** from the librarian catalog?"
-- If installed locally, also ask: "Also delete the local copy at `<path>`?"
+### 4. Confirm with User
 
-### 4. Remove from librarian.yaml
+Show the entry details and installed copies found, then ask:
 
-- Remove the entry from the appropriate section (`library.skills`, `library.agents`, or `library.prompts`)
+- "Remove **<name>** from the librarian catalog?"
+- If installed locally, also ask which local copies to delete:
+  - a specific provider/scope path
+  - all found copies
+  - none/local catalog removal only
+
+### 5. Remove from librarian.yaml
+
+- Remove the entry from the appropriate section (`library.skills`, `library.agents`, `library.prompts`, `library.pi-extensions`, or `library.pi-themes`)
 - If other entries depend on this one (via `requires`), warn the user before proceeding
 
-### 5. Delete Local Copy (if requested)
+### 6. Delete Local Copy/Copies (if requested)
 
 If the user confirmed local deletion:
 
-- Check the default directory for the type (from `default_dirs`)
-- Check the global directory
-- Remove the directory or file:
+- Remove each selected installed path:
   ```bash
-  rm -rf <target_directory>/<n>
+  rm -rf <installed_path>
   ```
+- For skills, the installed path is usually `<target_root>/<name>/`
+- For agents/prompts, the installed path is usually `<target_root>/<name>.md` or a preserved nested path
+- For Pi extensions, the installed path is usually `<target_root>/<name>.ts`, `<target_root>/<name>.js`, or `<target_root>/<name>/`
+- For Pi themes, the installed path is usually `<target_root>/<name>.json`
 
-### 6. Commit and Push
+### 7. Commit and Push
 
 ```bash
 cd <LIBRARIAN_SKILL_DIR>
 git add librarian.yaml
-git commit -m "librarian: removed <type> <n>"
+git commit -m "librarian: removed <type> <name>"
 git push
 ```
 
-### 7. Confirm
+### 8. Confirm
 
 Tell the user:
 
 - The entry has been removed from the catalog
-- Whether the local copy was also deleted
+- Whether local copies were deleted
+- Which provider/scope paths were deleted
 - If other entries depended on it, remind them to update those entries

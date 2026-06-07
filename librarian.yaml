@@ -1,14 +1,29 @@
 ---
-default_dirs:
-  skills:
-    - default: .claude/skills/
-    - global: ~/.claude/skills/
-  agents:
-    - default: .claude/agents/
-    - global: ~/.claude/agents/
-  prompts:
-    - default: .claude/commands/
-    - global: ~/.claude/commands/
+default_provider: pi
+providers:
+  claude:
+    skills:
+      default: .claude/skills/
+      global: ~/.claude/skills/
+    agents:
+      default: .claude/agents/
+      global: ~/.claude/agents/
+    prompts:
+      default: .claude/commands/
+      global: ~/.claude/commands/
+  pi:
+    skills:
+      default: .pi/skills/
+      global: ~/.pi/agent/skills/
+    prompts:
+      default: .pi/prompts/
+      global: ~/.pi/agent/prompts/
+    pi-extensions:
+      default: .pi/extensions/
+      global: ~/.pi/agent/extensions/
+    pi-themes:
+      default: .pi/themes/
+      global: ~/.pi/agent/themes/
 
 library:
   skills:
@@ -41,3 +56,5 @@ library:
       source: https://github.com/danyelkeddah/library/blob/main/skills/grill-me/SKILL.md
   agents: []
   prompts: []
+  pi-extensions: []
+  pi-themes: []

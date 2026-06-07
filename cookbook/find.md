@@ -1,4 +1,4 @@
-# Search the Catalog
+# Find Catalog Entries
 
 ## Context
 
@@ -22,7 +22,7 @@ git pull
 ### 2. Read the Catalog
 
 - Read `librarian.yaml`
-- Parse all entries from `library.skills`, `library.agents`, and `library.prompts`
+- Parse all entries from `library.skills`, `library.agents`, `library.prompts`, `library.pi-extensions`, and `library.pi-themes`
 
 ### 3. Search
 
@@ -43,15 +43,17 @@ If matches found, format as:
 |------|------|-------------|--------|
 | skill | matching-skill | description... | source... |
 | agent | matching-agent | description... | source... |
+| pi-extension | matching-extension | description... | source... |
+| pi-theme | matching-theme | description... | source... |
 ```
 
 If no matches:
 
 ```
 No results found for "<keyword>".
-Tip: Try broader keywords or run `/librarian list` to see the full catalog.
+Tip: Try broader keywords or run `/librarian catalog` to see the full catalog.
 ```
 
 ### 5. Suggest Next Step
 
-If matches were found, suggest: `Run /librarian use <n> to install one of these.`
+If matches were found, suggest: `Run /librarian install <name> to install to the default provider, or /librarian install <name> for <provider> to pick a provider.` For Pi extensions and Pi themes, `/librarian install <name>` installs to Pi by default.

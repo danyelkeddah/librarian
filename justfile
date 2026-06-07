@@ -1,37 +1,42 @@
 set dotenv-load := true
 
-# List available commands
+# These recipes invoke the local librarian skill with Pi.
+# Pi exposes skills as /skill:<name>, so recipes call /skill:librarian.
+# Model: openai-codex/gpt-5.5 with low thinking/reasoning.
+# Provider words in the arguments control the install target, e.g. `for pi`.
+
+# List available recipes
 default:
     @just --list
 
-# Install the librarian (first-time setup)
-install:
-    claude --dangerously-skip-permissions --model opus "/librarian install"
+# First-time Librarian setup
+setup:
+    pi --skill . --model openai-codex/gpt-5.5 --thinking low "/skill:librarian setup"
 
-# Add a new skill, agent, or prompt to the catalog
-add prompt:
-    claude --dangerously-skip-permissions --model opus "/librarian add {{prompt}}"
+# Register a new skill, agent, prompt, Pi extension, or Pi theme in the catalog
+register +prompt:
+    pi --skill . --model openai-codex/gpt-5.5 --thinking low "/skill:librarian register {{prompt}}"
 
-# Pull a skill from the catalog (install or refresh)
-use name:
-    claude --dangerously-skip-permissions --model opus "/librarian use {{name}}"
+# Install an item from the catalog. Example: just install spec-plan for pi
+install +query:
+    pi --skill . --model openai-codex/gpt-5.5 --thinking low "/skill:librarian install {{query}}"
 
-# Push local changes back to the source
-push name:
-    claude --dangerously-skip-permissions --model opus "/librarian push {{name}}"
+# Publish local changes back to the source. Example: just publish spec-plan from pi
+publish +query:
+    pi --skill . --model openai-codex/gpt-5.5 --thinking low "/skill:librarian publish {{query}}"
 
-# Remove a locally installed skill
-remove name:
-    claude --dangerously-skip-permissions --model opus "/librarian remove {{name}}"
+# Remove an item from the catalog and optionally installed copies
+remove +query:
+    pi --skill . --model openai-codex/gpt-5.5 --thinking low "/skill:librarian remove {{query}}"
 
-# Sync all installed items (re-pull from source)
-sync:
-    claude --dangerously-skip-permissions --model opus "/librarian sync"
+# Update installed items. Optional provider: just update for pi
+update *args:
+    pi --skill . --model openai-codex/gpt-5.5 --thinking low "/skill:librarian update {{args}}"
 
-# List all entries in the catalog with install status
-list:
-    claude --dangerously-skip-permissions --model opus "/librarian list"
+# Show the catalog with provider install status. Optional provider: just catalog for pi
+catalog *args:
+    pi --skill . --model openai-codex/gpt-5.5 --thinking low "/skill:librarian catalog {{args}}"
 
-# Search the catalog by keyword
-search keyword:
-    claude --dangerously-skip-permissions --model opus "/librarian search {{keyword}}"
+# Find catalog entries by keyword
+find +keyword:
+    pi --skill . --model openai-codex/gpt-5.5 --thinking low "/skill:librarian find {{keyword}}"
