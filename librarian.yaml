@@ -56,5 +56,11 @@ library:
       source: https://github.com/danyelkeddah/library/blob/main/skills/grill-me/SKILL.md
   agents: []
   prompts: []
-  pi-extensions: []
-  pi-themes: []
+  pi-extensions:
+    - name: whimsical
+      description: A playful Pi extension for a more whimsical agent experience.
+      source: https://github.com/danyelkeddah/library/blob/main/pi-extensions/whimsical.ts
+  pi-themes:
+    - name: catppuccin-mocha
+      description: Catppuccin Mocha theme for Pi.
+      source: https://github.com/danyelkeddah/library/blob/main/pi-themes/catppuccin-mocha.json
